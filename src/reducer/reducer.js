@@ -1,17 +1,14 @@
 import { actionTypes } from "./actionTypes";
 import { v4 as uuid } from "uuid";
 
+const newTodo = (id, title) => {
+  return { id, title, completed: false };
+};
+
 export const reducer = (state, action) => {
   switch (action.type) {
     case actionTypes.TODO_ADD:
-      return [
-        ...state,
-        {
-          id: uuid().slice(0, 10),
-          title: action.payload.title,
-          completed: false,
-        },
-      ];
+      return [...state, newTodo(uuid().slice(0, 10), action.payload.title)];
 
     case actionTypes.TODO_DELETE:
       return state.filter((item) => item.id !== action.payload.id);
